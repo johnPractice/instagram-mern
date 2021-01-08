@@ -14,6 +14,11 @@ const postSchema = new Schema({
         type: String,
         default: null
     },
+    likes: [{
+        type: ObjectId,
+        ref: 'User',
+        default: []
+    }],
     postedBy: {
         type: ObjectId,
         ref: 'User',
@@ -29,8 +34,8 @@ const postSchema = new Schema({
 
 postSchema.methods.toJSON = function() {
     const postObject = this.toObject();
-    delete postObject._id;
-    delete postObject.id;
+    // delete postObject._id;
+    // delete postObject.id;
     delete postObject.createdAt;
     delete postObject.updatedAt;
     delete postObject.__v;

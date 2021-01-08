@@ -7,24 +7,29 @@ import {UserContext} from "../../App";
 const Profile = () => {
     const [data, setData] = useState([]);
     const {state, dispatch} = useContext(UserContext);
-    useEffect(async () => {
-        try {
-            const getData = await fetch(constant.localUrl + 'post/', {
-                method: 'get',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": ("Bearer " + JSON.parse(localStorage.getItem('jwt')))
-                },
-            });
-            const result = await getData.json();
-            if (result && result.posts) {
-                console.log(result)
-                setData(result.posts);
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const getData = await fetch(constant.localUrl + 'post/', {
+                    method: 'get',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": ("Bearer " + JSON.parse(localStorage.getItem('jwt')))
+                    },
+                });
+                const result = await getData.json();
+                if (result && result.posts) {
+                    console.log(result)
+                    setData(result.posts);
+                }
+            } catch (e) {
+                console.error(e);
+                M.toast({html: 'something wrong', classes: "#c62828 red darken-3"});
             }
-        } catch (e) {
-            console.error(e);
-            M.toast({html: 'something wrong', classes: "#c62828 red darken-3"});
         }
+
+        fetchData();
+
     }, []);
     return (
         <div className='container-user-page'>

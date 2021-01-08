@@ -27,9 +27,35 @@
     /*padding: 2px;*/
 }
 
+/*bottom-pic-wrapper*/
+
+.bottom-pic-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    width: 10%;
+}
+
 /*favorite*/
-.fav-red {
-    color: red;
+.card-content i.liked {
+    color: red !important;
+}
+
+.card-content i.like {
+    transition: .3s ease-in;
+    text-shadow: 0 0 0;
+}
+
+.card-content i.like:focus,
+.card-content i.like:active {
+    text-shadow: 0 0 6px red;
+    color: #d63131;
+}
+
+/*number of like*/
+.count-like {
+    font-size: 16px;
+    opacity: 0.8;
 }
 
 /*for no post*/
