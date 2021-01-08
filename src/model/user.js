@@ -15,7 +15,7 @@ const userSchema = new Schema({
         unique: true,
         validate(value) {
             if (!validator.isEmail(value)) {
-                return new Error("check email");
+                throw new Error("check email");
             }
         },
     },

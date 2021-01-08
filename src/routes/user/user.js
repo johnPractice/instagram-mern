@@ -14,7 +14,7 @@ Router.post('/signup', async(req, res) => {
     } catch (e) {
         console.log(e);
         // res.status(400).json({ "error": e });
-        res.status(400).json("error");
+        res.status(400).json({ 'err': e.message });
     }
 });
 
@@ -31,5 +31,6 @@ Router.post('/login', async(req, res) => {
         // res.status(400).json("error");
     }
 });
+
 
 module.exports = Router;

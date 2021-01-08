@@ -1,0 +1,47 @@
+.home {
+    margin: 25px auto;
+}
+
+.home-card {
+    max-width: 500px;
+    height: max-content;
+    margin: 30px auto;
+    box-shadow: 0 0 8px grey;
+    transition: .1s ease-in;
+    cursor: pointer;
+    border-radius: 2px;
+    /*padding: 2px;*/
+
+}
+
+.home-card:focus,
+.home-card:active {
+    box-shadow: 0 0 15px grey;
+}
+
+.home-card h5 {
+    padding: 10px 0 5px 5px;
+}
+
+.home-card img {
+    /*padding: 2px;*/
+}
+
+/*favorite*/
+.fav-red {
+    color: red;
+}
+
+/*for no post*/
+.center.no-post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    height: 100%;
+    font-size: 30px;
+    color: grey;
+    opacity: .5;
+    margin: 0 auto;
+    padding: 50px 0;
+}

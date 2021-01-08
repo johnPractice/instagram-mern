@@ -12,7 +12,11 @@ const auth = async(req, res, next) => {
         if (!user) return res.status(400).json({ 'error': 'not found' });
         req.user = user;
     } catch (e) {
-        res.status(400).json({ "error": "you must be loggin" });
+        console.log(e);
+        return res.status(400).json({
+            "error": "you must be loggin",
+            "login": false
+        });
 
     }
     next();
