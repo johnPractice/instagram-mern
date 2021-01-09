@@ -27,6 +27,15 @@
     /*padding: 2px;*/
 }
 
+/*top of card*/
+.top-post-wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+    align-self: center;
+}
+
 /*bottom-pic-wrapper*/
 
 .bottom-pic-wrapper {
@@ -68,19 +77,27 @@
     justify-content: space-evenly;
     align-items: flex-start;
     border-bottom: 1px solid black;
+    /*border-top: 1px solid black;*/
 }
-.comment-wrapper .no-comment{
+
+.comment-wrapper .comment-icon {
+    margin-left: -15px;
+}
+
+.comment-wrapper .no-comment {
     text-align: center;
     opacity: .8;
     font-size: 20px;
     margin: 0 auto;
 }
+
 .comment-wrapper .comment-item {
     margin: 8px 0;
     width: 100%;
 
 }
-.comment-wrapper .comment-item .comment-name{
+
+.comment-wrapper .comment-item .comment-name {
     font-size: 18px;
     font-weight: bold;
 }

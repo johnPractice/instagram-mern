@@ -98,14 +98,50 @@ const Home = () => {
                         <span>{comments[0].commentBy.name} :</span>
                         {comments[1].text} </div>];
         };
+
+        const removePost = async (postId) => {
+            try {
+                const removePost = await fetch(constant.localUrl + 'post/' + postId.toString(), {
+                    method: 'delete',
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": ("Bearer " + JSON.parse(localStorage.getItem('jwt')))
+                    }
+                });
+                const result = await removePost.json();
+                if (result.err || removePost.status.toString() === '400') M.toast({
+                    html: result.err ? result.err : 'something wrong',
+                    classes: "#c62828 red darken-3"
+                });
+                else {
+                    const removedPost = result.post;
+                    const newData = data.filter(item => item._id.toString() !== removedPost._id.toString());
+                    setData(newData);
+                    M.toast({html: 'remove post', classes: "#1de9b6 teal accent-4"});
+                }
+
+            } catch (e) {
+                console.error(e);
+                M.toast({html: 'something wrong', classes: "#c62828 red darken-3"});
+            }
+        };
+
         return (
             <div className='home'>
                 {data.length > 0 ?
                     data.map(item => {
-
                         return (
                             <div className='card home-card' key={item._id}>
-                                <h5>{item.postedBy.name}</h5>
+                                <div className='top-post-wrapper'>
+                                    <h5>{item.postedBy.name}</h5>
+                                    {item.postedBy._id.toString() === state._id.toString() ?
+                                        <i
+                                            className="material-icons"
+                                            onClick={() => removePost(item._id)}
+                                        >delete</i> : null
+                                    }
+                                </div>
+
                                 <div className='card-image'>
                                     <img
                                         alt="home"
@@ -122,6 +158,7 @@ const Home = () => {
                                     <p>{item.body}</p>
 
                                     <div className='comment-wrapper'>
+                                        <i className="material-icons comment-icon">insert_comment</i>
                                         {
                                             item.comments.length === 0 ?
                                                 <div className='no-comment'>you can add first

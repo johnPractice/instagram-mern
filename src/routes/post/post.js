@@ -45,10 +45,27 @@ Router.get('/', Auth, async(req, res) => {
     }
 });
 
+Router.delete('/:postId', Auth, async(req, res) => {
+    try {
+        const { postId } = req.params;
+        const { user } = req;
+        if (!postId) return res.status(400).json({ 'err': "fill the all required field" });
+        const post = await Post.findById(postId);
+        if (!post) return res.status(400).json({ 'err': "can not found this post" });
+        if (post.postedBy.toString() != user._id.toString()) return res.status(400).json({ 'err': "you cant not access with this post" });
+        await post.remove();
+        return res.json({ "remove": true, post });
+    } catch (e) {
+        console.log(e);
+        if (e.message) return res.status(400).json({ 'err': e.message });
+        else return res.status(400).json({ 'err': 'something wrong' });
+    }
+});
 Router.get('/all', Auth, async(req, res) => {
     try {
         const posts = await Post.find({})
-            .populate('postedBy', 'name');
+            .populate('postedBy', 'name')
+            .populate('comments.commentBy', 'name');
         res.json({ posts });
     } catch (e) {
         console.log(e);

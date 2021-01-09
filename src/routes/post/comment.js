@@ -11,8 +11,8 @@ router.put('/comment', Auth, async(req, res) => {
             commentBy: user._id
         };
         const post = await Post.findById(postId)
-            .populate('comments.commentBy', 'name')
-            .populate('postedBy', 'name');
+            .populate('postedBy', 'name')
+            .populate('comments.commentBy', 'name');
         if (!post) return res.status(400).json({ 'err': "can not found this post" });
         post.comments = post.comments.concat(commentObject);
         await post.save();
