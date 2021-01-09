@@ -1,14 +1,16 @@
 const router = require('express').Router();
-const auth = require('../../middelware/auth');
+const Auth = require('../../middelware/auth');
 const Post = require('../../model/post');
 
-router.put('/like', auth, async(req, res) => {
+router.put('/like', Auth, async(req, res) => {
     try {
         const { postId } = req.body;
         const { user } = req;
         if (!postId) return res.status(400).json({ 'err': "fill the all required field" });
         const post = await Post.findById(postId)
-            .populate('postedBy', 'name');
+            .populate('postedBy', 'name')
+            .populate('comments.commentBy', 'name');
+
         if (!post) return res.status(400).json({ 'err': "can not found this post" });
         if (!post.likes.includes(user._id.toString())) {
             post.likes = post.likes.concat(user._id);
@@ -26,7 +28,7 @@ router.put('/like', auth, async(req, res) => {
 
     }
 });
-router.put('/unlike', auth, async(req, res) => {
+router.put('/unlike', Auth, async(req, res) => {
     try {
         const { postId } = req.body;
         const { user } = req;
