@@ -9,6 +9,7 @@ import CreatePost from "./component/screens/CreatePost";
 
 import {BrowserRouter, Route, Switch, useHistory} from 'react-router-dom';
 import {initialState, reducer} from "./reducers/userReduces";
+import UserProfile from "./component/screens/UserProfile";
 
 export const UserContext = createContext();
 const Routing = () => {
@@ -27,8 +28,11 @@ const Routing = () => {
             <Route exact path='/'>
                 <Home/>
             </Route>
-            <Route path='/profile'>
+            <Route exact path='/profile'>
                 <Profile/>
+            </Route>
+            <Route path='/profile/:userId'>
+                <UserProfile/>
             </Route>
             <Route path='/signup'>
                 <SignUp/>
