@@ -3,6 +3,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const user = require('./routes/user/user');
 const seeOtherProfile = require('./routes/user/view_profile');
+const followUser = require('./routes/user/follow');
 const post = require('./routes/post/post');
 const like_unlike = require('./routes/post/like_unlike');
 const comment = require('./routes/post/comment');
@@ -18,14 +19,15 @@ app.use(cors()); // it enables all cors requests
 app.use(fileUpload());
 
 app.use('/user', user);
+app.use('/user', followUser);
 app.use('/user', seeOtherProfile);
 app.use('/post', post);
 app.use('/post', like_unlike);
 app.use('/post', comment);
 app.use((req, res, next) => {
-    console.log(req.path);
-    next();
+  console.log(req.path);
+  next();
 });
 
-app.get('/test', (req, res) => res.json("Hello world"));
+app.get('/test', (req, res) => res.json('Hello world'));
 module.exports = app;
