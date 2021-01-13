@@ -1,6 +1,6 @@
 const Router = require('express').Router();
 const User = require('../../model/user');
-
+const Auth = require('../../middelware/auth');
 Router.post('/signup', async (req, res) => {
   try {
     const { name, password, email } = req.body;
@@ -32,6 +32,24 @@ Router.post('/login', async (req, res) => {
     res.status(400).json({ error: e.message });
     // res.status(400).json("error");
   }
+});
+
+Router.put('/', Auth, async (req, res) => {
+  const { user } = req;
+  // const canUpdate = ['avatar', 'password', 'email', 'name'];
+  const { avatar } = req.files;
+  console.log(avatar);
+  if (!avatar)
+    return res.status(400).json({ err: 'required filed not inserted' });
+  await avatar.mv(`./public/avatar/${avatar.name}`, async function (err) {
+    if (err) {
+      console.log(err);
+      return res.status(500).json({ err: 'Error occured' });
+    }
+    user.avatar = `avatar/${avatar.name}`;
+    await user.save();
+    return res.json({ user });
+  });
 });
 
 module.exports = Router;

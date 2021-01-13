@@ -63,3 +63,42 @@
   background-color: red !important;
   transform: rotate(180deg);
 }
+
+/* own profile view  */
+.avatar-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.avatar-profile {
+  cursor: pointer;
+}
+.avatar-wrapper:hover .upload-avatar {
+  opacity: 1;
+  bottom: 0;
+}
+.upload-avatar {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 40px;
+  width: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  z-index: 1;
+  transition: 0.3s ease;
+  opacity: 0;
+  cursor: pointer;
+}
+.upload-avatar i {
+  font-size: 28px;
+  color: white;
+}
+.upload-avatar input {
+  display: none;
+}
