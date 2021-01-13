@@ -8,13 +8,22 @@ router.put('/follow', Auth, async (req, res) => {
     const userFollowed = await User.findById(followId);
     if (!userFollowed)
       return res.status(400).json({ err: 'can not access this user' });
-    if (userFollowed.followers.includes(user._id))
-      return res.status(400).json({ err: 'you follow before' });
+    if (userFollowed.followers.includes(user._id)) {
+      userFollowed.followers = userFollowed.followers.filter(
+        (id) => id.toString() != user._id.toString()
+      );
+      user.following = user.following.filter(
+        (id) => id.toString() != userFollowed._id.toString()
+      );
+      await user.save();
+      await userFollowed.save();
+      return res.json({ user, userFollowed, followed: false });
+    }
     userFollowed.followers = userFollowed.followers.concat(user._id);
     user.following = user.following.concat(userFollowed._id);
     await user.save();
     await userFollowed.save();
-    return res.json({ user, userFollowed });
+    return res.json({ user, userFollowed, followed: true });
   } catch (e) {
     console.log(e);
     if (e.message) return res.status(400).json({ err: e.message });

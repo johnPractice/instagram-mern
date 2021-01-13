@@ -6,7 +6,7 @@ import { UserContext } from '../../App';
 import { useParams } from 'react-router-dom';
 
 const Profile = () => {
-  const [data, setData] = useState({ user: {}, post: {} });
+  const [data, setData] = useState({ user: {}, post: {}, followed: false });
   const { state } = useContext(UserContext);
   const { userId } = useParams();
 
@@ -27,9 +27,9 @@ const Profile = () => {
             classes: '#c62828 red darken-3',
           });
         else {
-          const { user, post } = result;
-          await setData({ user, post });
-          console.log('hii', data);
+          const { user, post, followed } = result;
+          await setData({ user, post, followed });
+          console.log('hii1', data);
         }
       } catch (e) {
         console.error(e);
@@ -57,9 +57,13 @@ const Profile = () => {
         classes: '#c62828 red darken-3',
       });
     else {
-      console.log(result);
+      console.log('hiiiii', result);
       const { userFollowed } = result;
-      setData({ user: userFollowed });
+      await setData({
+        user: userFollowed,
+        followed: result.followed,
+        post: data.post,
+      });
     }
   };
   return (
@@ -91,10 +95,12 @@ const Profile = () => {
           </div>
           <button
             onClick={followUSer}
-            className="btn waves-effect waves-light #1e88e5 blue darken-1"
+            className={
+              'btn waves-effect waves-light  follow-btn ' +
+              `${data.followed ? 'btn-unfllowed' : '#1e88e5 blue darken-1'}`
+            }
           >
             <i className="material-icons">thumb_up</i>
-            Login
           </button>
         </div>
       </div>

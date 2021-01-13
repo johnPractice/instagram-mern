@@ -1,52 +1,65 @@
 /*container-user-page*/
 .container-user-page {
-    max-width: 550px;
-    margin: 0 auto;
+  max-width: 550px;
+  margin: 0 auto;
 }
 
 /*user image info*/
 .user-top-info {
-    justify-content: space-around;
-    margin: 25px 0;
-    flex-basis: 40%;
-    border-bottom: #96969b 1px solid;
+  justify-content: space-around;
+  margin: 25px 0;
+  flex-basis: 40%;
+  border-bottom: #96969b 1px solid;
 }
 
 .image-avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
 }
 
 /*follow style*/
 .follow-info {
-    padding: 10px 0;
-    justify-content: space-between;
+  padding: 10px 0;
+  justify-content: space-between;
 }
 
 .follow-info h5 {
-    color: #0f92ab;
-    margin: 0 5px;
-    font-size: 15px;
-    cursor: pointer;
+  color: #0f92ab;
+  margin: 0 5px;
+  font-size: 15px;
+  cursor: pointer;
 }
-
 
 /*gallery*/
 .user-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .user-gallery .gallery-item {
-    width: 27%;
-    padding: 3px;
-    border-radius: 5px;
-
+  width: 27%;
+  padding: 3px;
+  border-radius: 5px;
 }
 
 .gallery-item {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+/* follow btn sytyle */
+.follow-btn {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s ease;
+}
+
+.btn-unfllowed {
+  background-color: red !important;
+  transform: rotate(180deg);
 }
